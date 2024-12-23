@@ -1,11 +1,11 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsMoonFill } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { toogleMode } from "../store/store";
+import { signOutSuccess, toogleMode } from "../store/store";
 
 function Header() {
   const path = useLocation().pathname;
@@ -16,8 +16,27 @@ function Header() {
 
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleToogleButton = (event) => {
     dispatch(toogleMode());
+  };
+
+  const handleSignOut = async (req, res) => {
+    console.log("handling signout");
+    try {
+      const res = await fetch("http://localhost:3000/server/user/sign-out", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (res.ok) {
+        dispatch(signOutSuccess());
+        navigate("/signin");
+      } else {
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -68,7 +87,7 @@ function Header() {
                   <Dropdown.Item>Profile</Dropdown.Item>
                 </Link>
                 <Dropdown.Divider />
-                <Dropdown.Item>Sign out</Dropdown.Item>
+                <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
               </Dropdown>
             ) : (
               <Button color="success" outline>

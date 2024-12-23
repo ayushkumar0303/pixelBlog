@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "flowbite-react";
 import { HiUser, HiTable } from "react-icons/hi";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { signOutSuccess } from "../store/store";
+import { useDispatch } from "react-redux";
 
 function DashSidebar() {
   const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [tab, setTab] = useState("");
 
   useEffect(() => {
@@ -16,6 +20,22 @@ function DashSidebar() {
     // console.log(getTab);
   }, [location.search]);
 
+  const handleSignOut = async (req, res) => {
+    try {
+      const res = await fetch("http://localhost:3000/server/user/sign-out", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (res.ok) {
+        dispatch(signOutSuccess());
+        navigate("/signin");
+      } else {
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="shadow-xl">
       <Sidebar>
@@ -32,7 +52,9 @@ function DashSidebar() {
                 Profile
               </Sidebar.Item>
             </Link>
-            <Sidebar.Item icon={HiTable}>Sign Up</Sidebar.Item>
+            <Sidebar.Item icon={HiTable} onClick={handleSignOut}>
+              Sign Out
+            </Sidebar.Item>
           </Sidebar.ItemGroup>
         </Sidebar.Items>
       </Sidebar>
