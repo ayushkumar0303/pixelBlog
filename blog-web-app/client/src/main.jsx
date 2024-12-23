@@ -1,0 +1,68 @@
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Dashboard from "./pages/Dashboard.jsx";
+import Signin from "./pages/Signin.jsx";
+import Signup from "./pages/Signup.jsx";
+import Home from "./pages/Home.jsx";
+import About from "./pages/About.jsx";
+import { store, persistor } from "./store/store.js";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import ThemePage from "./components/ThemePage.jsx";
+import PrivateDash from "./components/privateDash.jsx";
+import Error404 from "./components/Error404.jsx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <PrivateDash />,
+        children: [
+          {
+            path: "/dashboard",
+            element: <Dashboard />,
+          },
+        ],
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      ,
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/home",
+        element: <Home />,
+      },
+    ],
+  },
+  {
+    path: "/*",
+    element: <Error404 />,
+  },
+]);
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <ThemePage>
+          <RouterProvider router={router} />
+        </ThemePage>
+      </PersistGate>
+    </Provider>
+  </StrictMode>
+);
