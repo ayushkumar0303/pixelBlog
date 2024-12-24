@@ -14,6 +14,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import ThemePage from "./components/ThemePage.jsx";
 import PrivateDash from "./components/privateDash.jsx";
 import Error404 from "./components/Error404.jsx";
+import PrivateCreatePost from "./components/PrivateCreatePost.jsx";
+import CreatePost from "./pages/CreatePost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,16 @@ const router = createBrowserRouter([
           {
             path: "/dashboard",
             element: <Dashboard />,
+          },
+        ],
+      },
+      {
+        path: "/create-post",
+        element: <PrivateCreatePost />,
+        children: [
+          {
+            path: "/create-post",
+            element: <CreatePost />,
           },
         ],
       },

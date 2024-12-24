@@ -25,7 +25,7 @@ function OAuth() {
       //   "http://localhost:5173/"
       // );
       // const resultsFromGoogle = await account.get();
-      // console.log(resultsFromGoogle);
+      console.log(resultsFromGoogle);
 
       const res = await fetch("http://localhost:3000/server/auth/google", {
         method: "POST",

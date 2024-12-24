@@ -14,7 +14,7 @@ import {
 
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function DashProfile() {
   // const user = useSelector((state) => state.user);
@@ -158,6 +158,9 @@ function DashProfile() {
     dispatch(updateError(null));
     dispatch(deleteFailure(null));
   }, []);
+
+  // console.log(imageURL);
+  // console.log(currentUser.profilePicture);
   return (
     <div className=" pt-14 flex flex-grow flex-col items-center ">
       <div className="w-1/2">
@@ -182,7 +185,11 @@ function DashProfile() {
             )}
 
             <img
-              src={imageURL || currentUser.profilePicture}
+              src={
+                imageURL ||
+                currentUser.profilePicture ||
+                "https://th.bing.com/th/id/OIP.F5__MKT22Z4iwy-s2YJFHgAAAA?rs=1&pid=ImgDetMain"
+              }
               className={`rounded-full border-solid border-4 border-gray-500 h-24 w-24
               object-cover ${isUploading && "opacity-55"}`}
               onClick={() => filePickerRef.current.click()}
@@ -226,6 +233,13 @@ function DashProfile() {
               "Update"
             )}
           </Button>
+          {currentUser.isAdmin && (
+            <Link to="/create-post">
+              <Button type="button" color="success" className="w-full">
+                create post
+              </Button>
+            </Link>
+          )}
         </form>
         <div className="flex justify-between mt-2">
           <span

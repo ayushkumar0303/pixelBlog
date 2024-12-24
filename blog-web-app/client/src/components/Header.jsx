@@ -2,7 +2,7 @@ import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BsMoonFill } from "react-icons/bs";
+import { BsMoonFill, BsSunFill } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOutSuccess, toogleMode } from "../store/store";
@@ -15,6 +15,7 @@ function Header() {
   // console.log(path);
 
   const { currentUser } = useSelector((state) => state.user);
+  const { isDark } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleToogleButton = (event) => {
@@ -63,14 +64,17 @@ function Header() {
               // className="h-full"
               onClick={handleToogleButton}
             >
-              <BsMoonFill />
+              {isDark ? <BsSunFill /> : <BsMoonFill />}
             </Button>
             {currentUser && currentUser.email ? (
               <Dropdown
                 label={
                   <Avatar
                     rounded
-                    img={currentUser.profilePicture}
+                    img={
+                      currentUser.profilePicture ||
+                      "https://th.bing.com/th/id/OIP.F5__MKT22Z4iwy-s2YJFHgAAAA?rs=1&pid=ImgDetMain"
+                    }
                     className="border-solid border-2 border-gray-500 rounded-full"
                   />
                 }
@@ -101,9 +105,6 @@ function Header() {
             </Navbar.Link>
             <Navbar.Link active={path === "/about"} as={"div"}>
               <Link to="/about">About</Link>
-            </Navbar.Link>
-            <Navbar.Link active={path === "/dashboard"} as={"div"}>
-              <Link to="/dashboard">Dashboard</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/projects"} as={"div"}>
               <Link to="/projects">Projects</Link>
