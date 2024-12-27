@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Button,
@@ -10,12 +10,49 @@ import {
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { storage } from "../appwrite";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
+  const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [imageUploading, setImageUploading] = useState(false);
   const [imageUploadError, setImageUploadError] = useState(null);
+  const [formsubmittionError, setFormsubmittionError] = useState(null);
+  const title = useRef();
+  const category = useRef();
+  const content = useRef();
+
+  const handleFormData = async (event) => {
+    event.preventDefault();
+    try {
+      setFormsubmittionError(null);
+      const res = await fetch(`http://localhost:3000/server/post/create-post`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          title: title.current.value,
+          category: category.current.value,
+          userId: currentUser._id,
+          postImage: imageUrl,
+          content: content.current.value,
+        }),
+      });
+      const data = await res.json();
+      // console.log(data);
+      if (res.ok) {
+        navigate(`/posts/${data.slug}`);
+      } else {
+        setFormsubmittionError(data);
+      }
+    } catch (error) {
+      console.log(error.message);
+      setFormsubmittionError(error.message);
+    }
+  };
   const handleUploadImage = async () => {
     setImageUploading(true);
     try {
@@ -52,15 +89,16 @@ function CreatePost() {
   return (
     <div className="p-3 min-h-screen max-w-3xl mx-auto">
       <h1 className="font-bold text-3xl text-center">Create a Post</h1>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleFormData}>
         <div className="flex flex-col sm:flex-row gap-4 justify-between">
           <TextInput
             type="text"
             placeholder="Title"
             required
             className="flex-1"
+            ref={title}
           />
-          <Select>
+          <Select ref={category}>
             <option value="uncategorized">Select a category</option>
             <option value="javascript">JavaScript</option>
             <option value="react.js">React.js</option>
@@ -84,35 +122,35 @@ function CreatePost() {
           </Button>
         </div>
         {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
-        {imageUploading ? (
-          <div className="w-full h-80 flex justify-center items-center">
+        {imageUploading && (
+          <div className="w-full h-24 flex justify-center items-center">
             <Spinner
               aria-label="Center-aligned spinner example"
               size="xl"
               color="warning"
             />
           </div>
-        ) : (
-          <img
-            src={
-              imageUrl ||
-              "https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/09/how-to-write-a-blog-post.png"
-            }
-            alt=""
-            className="h-80 object-cover"
-          />
+        )}
+        {imageUrl && (
+          <img src={imageUrl} alt="" className="h-80 object-cover" />
         )}
 
         <ReactQuill
           theme="snow"
           placeholder="Write something..."
           className="h-72 mb-12"
+          ref={content}
           required
         />
-        <Button type="submit" color="success">
+        <Button type="submit" color="success" disabled={imageUploading}>
           Publish
         </Button>
       </form>
+      {formsubmittionError && (
+        <Alert className="mt-4 mb-4" color="failure">
+          {formsubmittionError}
+        </Alert>
+      )}
     </div>
   );
 }

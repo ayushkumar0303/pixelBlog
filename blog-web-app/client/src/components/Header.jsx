@@ -71,10 +71,7 @@ function Header() {
                 label={
                   <Avatar
                     rounded
-                    img={
-                      currentUser.profilePicture ||
-                      "https://th.bing.com/th/id/OIP.F5__MKT22Z4iwy-s2YJFHgAAAA?rs=1&pid=ImgDetMain"
-                    }
+                    img={currentUser.profilePicture}
                     className="border-solid border-2 border-gray-500 rounded-full"
                   />
                 }
