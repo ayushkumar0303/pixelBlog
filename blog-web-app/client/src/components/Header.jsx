@@ -41,7 +41,7 @@ function Header() {
   };
 
   return (
-    <Navbar className="shadow-md">
+    <Navbar className=" border-b-2 border-b-teal-800">
       <Link to="/" className="font-semibold text-sm sm:text-xl">
         <span className="bg-green-700 px-3 py-1 rounded text-white">Pixel</span>
         Blog

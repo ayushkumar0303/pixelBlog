@@ -6,7 +6,7 @@ export const ThemePage = ({ children }) => {
 
   return (
     <div className={`${isDark ? "dark" : "light"}`}>
-      <div className="dark:text-white dark:bg-gray-800  text-black bg-white min-h-screen">
+      <div className="dark:text-white dark:bg-gray-600  text-black bg-white min-h-screen">
         {children}
       </div>
     </div>

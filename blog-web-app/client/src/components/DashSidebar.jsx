@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "flowbite-react";
-import { HiUser, HiTable } from "react-icons/hi";
+import { HiUser, HiTable, HiDocument } from "react-icons/hi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signOutSuccess } from "../store/store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function DashSidebar() {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [tab, setTab] = useState("");
+
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(location.search);
@@ -37,28 +39,39 @@ function DashSidebar() {
     }
   };
   return (
-    <div className="shadow-xl">
-      <Sidebar>
-        <Sidebar.Items>
-          <Sidebar.ItemGroup>
-            <Link to="/dashboard/?tab=profile">
+    <Sidebar>
+      <Sidebar.Items>
+        <Sidebar.ItemGroup className="flex flex-col">
+          <Link to="/dashboard/?tab=profile">
+            <Sidebar.Item
+              icon={HiUser}
+              label={currentUser.isAdmin ? "Admin" : "User"}
+              labelColor="dark"
+              active={tab === "profile"}
+              as="div"
+            >
+              Profile
+            </Sidebar.Item>
+          </Link>
+          {currentUser.isAdmin && (
+            <Link to="/dashboard/?tab=posts">
               <Sidebar.Item
-                icon={HiUser}
-                label="User"
+                icon={HiDocument}
                 labelColor="dark"
-                active={tab === "profile"}
+                active={tab === "posts"}
                 as="div"
               >
-                Profile
+                Posts
               </Sidebar.Item>
             </Link>
-            <Sidebar.Item icon={HiTable} onClick={handleSignOut}>
-              Sign Out
-            </Sidebar.Item>
-          </Sidebar.ItemGroup>
-        </Sidebar.Items>
-      </Sidebar>
-    </div>
+          )}
+
+          <Sidebar.Item icon={HiTable} onClick={handleSignOut}>
+            Sign Out
+          </Sidebar.Item>
+        </Sidebar.ItemGroup>
+      </Sidebar.Items>
+    </Sidebar>
   );
 }
 
