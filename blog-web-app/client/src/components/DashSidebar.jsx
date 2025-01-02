@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "flowbite-react";
-import { HiUser, HiTable, HiDocument } from "react-icons/hi";
+import { HiUser, HiTable, HiDocument, HiArrowSmRight } from "react-icons/hi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signOutSuccess } from "../store/store";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +39,7 @@ function DashSidebar() {
     }
   };
   return (
-    <Sidebar>
+    <Sidebar className="">
       <Sidebar.Items>
         <Sidebar.ItemGroup className="flex flex-col">
           <Link to="/dashboard/?tab=profile">
@@ -66,7 +66,7 @@ function DashSidebar() {
             </Link>
           )}
 
-          <Sidebar.Item icon={HiTable} onClick={handleSignOut}>
+          <Sidebar.Item icon={HiArrowSmRight} onClick={handleSignOut}>
             Sign Out
           </Sidebar.Item>
         </Sidebar.ItemGroup>

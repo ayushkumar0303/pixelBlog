@@ -92,11 +92,15 @@ function DashPosts() {
                   </Table.Cell>
                   <Table.Cell>{post.category}</Table.Cell>
                   <Table.Cell>
-                    <span className="text-red-500">Delete</span>
+                    <span className="text-red-500 hover:underline cursor-pointer">
+                      Delete
+                    </span>
                   </Table.Cell>
                   <Table.Cell>
                     <Link to={`/update-post/${post._id}`}>
-                      <span className="text-teal-500">Edit</span>
+                      <span className="text-teal-500 hover:underline">
+                        Edit
+                      </span>
                     </Link>
                   </Table.Cell>
                 </Table.Row>

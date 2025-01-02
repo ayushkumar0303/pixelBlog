@@ -16,8 +16,8 @@ function Dashboard() {
     // console.log(getTab);
   }, [location.search]);
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
-      <div>
+    <div className="min-h-screen flex flex-col md:flex-row items-center md:items-start mb-4">
+      <div className="">
         <DashSidebar />
       </div>
       {tab === "profile" && <DashProfile />}

@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, Spinner, TextInput } from "flowbite-react";
+import { Alert, Button, Modal, Spinner, TextInput, Card } from "flowbite-react";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { storage } from "../appwrite";
@@ -163,8 +163,8 @@ function DashProfile() {
   // console.log(imageURL);
   // console.log(currentUser.profilePicture);
   return (
-    <div className=" pt-14 flex flex-grow flex-col items-center ">
-      <div className="w-1/2">
+    <div className=" pt-14 flex flex-grow flex-col items-center">
+      <Card className="min-w-96">
         <h1 className="flex font-bold text-5xl justify-center pb-5">Profile</h1>
         <form className="pt-4 flex flex-col gap-3" onSubmit={handleFormData}>
           <input
@@ -277,7 +277,7 @@ function DashProfile() {
             <Alert color="success">{imageUpdateSuccess}</Alert>
           )}
         </div>
-      </div>
+      </Card>
     </div>
   );
 }
