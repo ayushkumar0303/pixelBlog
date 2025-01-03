@@ -11,6 +11,6 @@ const postRouter = express.Router();
 postRouter.post("/create-post", verifyToken, createPost);
 postRouter.get("/get-posts", getPosts);
 postRouter.delete("/delete-post/:postId/:userId", verifyToken, deletePost);
-postRouter.put("/update-post/:postId", verifyToken, updatePost);
+postRouter.put("/update-post/:postId/:userId", verifyToken, updatePost);
 
 export default postRouter;
