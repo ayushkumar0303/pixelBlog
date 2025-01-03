@@ -16,6 +16,7 @@ import PrivateDash from "./components/privateDash.jsx";
 import Error404 from "./components/Error404.jsx";
 import PrivateCreatePost from "./components/PrivateCreatePost.jsx";
 import CreatePost from "./pages/CreatePost.jsx";
+import UpdatePost from "./pages/UpdatePost.jsx";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,16 @@ const router = createBrowserRouter([
           {
             path: "/create-post",
             element: <CreatePost />,
+          },
+        ],
+      },
+      {
+        path: "/update-post/:postId",
+        element: <PrivateCreatePost />,
+        children: [
+          {
+            path: "/update-post/:postId",
+            element: <UpdatePost />,
           },
         ],
       },

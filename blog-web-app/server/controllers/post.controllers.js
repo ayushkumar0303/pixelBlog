@@ -95,4 +95,11 @@ export const deletePost = async (req, res) => {
     return res.status(403).json(error.message);
   }
 };
+
+export const updatePost = async (req, res) => {
+  try {
+  } catch (error) {
+    return res.status(403).json(error.message);
+  }
+};
 export default createPost;

@@ -66,7 +66,11 @@ function DashSidebar() {
             </Link>
           )}
 
-          <Sidebar.Item icon={HiArrowSmRight} onClick={handleSignOut}>
+          <Sidebar.Item
+            className="cursor-pointer"
+            icon={HiArrowSmRight}
+            onClick={handleSignOut}
+          >
             Sign Out
           </Sidebar.Item>
         </Sidebar.ItemGroup>
