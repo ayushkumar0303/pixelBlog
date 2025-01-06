@@ -17,6 +17,7 @@ import Error404 from "./components/Error404.jsx";
 import PrivateCreatePost from "./components/PrivateCreatePost.jsx";
 import CreatePost from "./pages/CreatePost.jsx";
 import UpdatePost from "./pages/UpdatePost.jsx";
+import PostPage from "./pages/PostPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
+      },
+      {
+        path: "/posts/:postSlug",
+        element: <PostPage />,
       },
     ],
   },

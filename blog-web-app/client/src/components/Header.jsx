@@ -91,9 +91,11 @@ function Header() {
                 <Dropdown.Item onClick={handleSignOut}>Sign out</Dropdown.Item>
               </Dropdown>
             ) : (
-              <Button color="success" outline>
-                SignIn
-              </Button>
+              <Link to="/signin">
+                <Button color="success" outline>
+                  SignIn
+                </Button>
+              </Link>
             )}
           </div>
           <div className="flex flex-col gap-8 md:flex-row md:items-center ">

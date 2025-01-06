@@ -77,9 +77,6 @@ function DashUsers() {
                 <Table.HeadCell>Email</Table.HeadCell>
                 <Table.HeadCell>Admin</Table.HeadCell>
                 <Table.HeadCell>Delete</Table.HeadCell>
-                <Table.HeadCell>
-                  <span className="">Edit</span>
-                </Table.HeadCell>
               </Table.Head>
               {getUsers.map((user) => (
                 <Table.Body className="divide-y" key={user._id}>
@@ -116,13 +113,6 @@ function DashUsers() {
                       >
                         Delete
                       </span>
-                    </Table.Cell>
-                    <Table.Cell>
-                      <Link to={`/update-user/${user._id}`}>
-                        <span className="text-teal-500 hover:underline">
-                          Edit
-                        </span>
-                      </Link>
                     </Table.Cell>
                   </Table.Row>
                 </Table.Body>
