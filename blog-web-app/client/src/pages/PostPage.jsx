@@ -34,7 +34,7 @@ function PostPage() {
   return (
     <main className="flex flex-col items-center my-4 gap-5 w-full">
       <div className="font-serif text-center text-2xl lg:text-4xl ">
-        {post && post.title}
+        {post && post.title.charAt(0).toUpperCase() + post.title.slice(1)}
       </div>
       <Badge color="gray" className="">
         {post && post.category}
@@ -56,7 +56,6 @@ function PostPage() {
         className="content_class p-3 mx-auto max-w-2xl"
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
-      ;
     </main>
   );
 }
