@@ -112,7 +112,7 @@ function DashPosts() {
                         {new Date(post.updatedAt).toLocaleDateString()}
                       </Table.Cell>
                       <Table.Cell>
-                        <Link to={`/post/${post.slug}`}>
+                        <Link to={`/posts/${post.slug}`}>
                           <img
                             src={post.postImage}
                             alt={post.title}
@@ -121,7 +121,7 @@ function DashPosts() {
                         </Link>
                       </Table.Cell>
                       <Table.Cell>
-                        <Link to={`/post/${post.slug}`}>{post.slug}</Link>
+                        <Link to={`/posts/${post.slug}`}>{post.slug}</Link>
                       </Table.Cell>
                       <Table.Cell>{post.category}</Table.Cell>
                       <Table.Cell>
