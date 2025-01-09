@@ -2,6 +2,7 @@ import { Badge } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 // import { Parser } from "html-react-parser";
 import { useParams } from "react-router-dom";
+import CallToAction from "../components/CallToAction";
 
 function PostPage() {
   const { postSlug } = useParams();
@@ -56,6 +57,9 @@ function PostPage() {
         className="content_class p-3 mx-auto max-w-2xl"
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
+      <div className="max-w-4xl mx-auto w-full">
+        <CallToAction />
+      </div>
     </main>
   );
 }
