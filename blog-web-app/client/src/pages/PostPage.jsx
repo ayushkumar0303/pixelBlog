@@ -8,7 +8,7 @@ import PostComment from "../components/PostComment";
 function PostPage() {
   const { postSlug } = useParams();
   const [post, setPost] = useState(null);
-  // console.log(post);
+  console.log(post);
   useEffect(() => {
     const makeAbsoluteUrl = (content) => {
       const baseUrl = "https://";
@@ -23,9 +23,10 @@ function PostPage() {
         );
         const data = await res.json();
         // console.log(data.posts[0].content);
-        const updatedContent = makeAbsoluteUrl(data.posts[0].content);
-        setPost({ ...data.posts[0], content: updatedContent });
+
         if (res.ok) {
+          const updatedContent = makeAbsoluteUrl(data.posts[0].content);
+          setPost({ ...data.posts[0], content: updatedContent });
         }
       };
       fetchPost();
@@ -63,7 +64,7 @@ function PostPage() {
         <CallToAction />
       </div>
 
-      <PostComment postId={post && post._Id} />
+      <PostComment postId={post && post._id} />
     </main>
   );
 }

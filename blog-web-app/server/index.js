@@ -6,6 +6,7 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import cors from "cors";
 import postRouter from "./routes/post.route.js";
+import commentRouter from "./routes/comment.route.js";
 
 const app = express();
 
@@ -36,3 +37,4 @@ app.listen(3000, (req, res) => {
 app.use("/server/user", userRouter);
 app.use("/server/auth", authRouter);
 app.use("/server/post", postRouter);
+app.use("/server/comment", commentRouter);
