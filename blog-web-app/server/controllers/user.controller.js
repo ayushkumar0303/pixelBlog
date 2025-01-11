@@ -127,4 +127,11 @@ export const getUsers = async (req, res) => {
   }
 };
 
+export const getUser = async (req, res) => {
+  const user = await User.findById(req.params.userId);
+  const { password, ...rest } = user._doc;
+
+  return res.status(200).json(rest);
+};
+
 export default userTest;

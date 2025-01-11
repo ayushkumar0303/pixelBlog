@@ -1,12 +1,33 @@
 import { Button, Textarea } from "flowbite-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import GetComments from "./GetComments";
 
 function PostComment({ postId }) {
   // console.log(postId);
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
+  const [comments, setComments] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      const getComments = async () => {
+        const res = await fetch(
+          `http://localhost:3000/server/comment/get-comments/${postId}`
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setComments(data);
+        }
+      };
+
+      getComments();
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [postId]);
   // console.log(comment);
   const handleSubmitComment = async (e) => {
     e.preventDefault();
@@ -34,6 +55,41 @@ function PostComment({ postId }) {
         setComment("");
       } else {
         console.log(data.message);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleLike = async (commentId) => {
+    if (!currentUser) {
+      navigate("/signin");
+      return;
+    }
+    try {
+      const res = await fetch(
+        `http://localhost:3000/server/comment/like-comment/${commentId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+        }
+      );
+      const data = await res.json();
+
+      if (res.ok) {
+        setComments(
+          comments.map((comment) =>
+            comment._id === commentId
+              ? {
+                  ...comment,
+                  likes: data.likes,
+                  likesCount: data.likes.length,
+                }
+              : comment
+          )
+        );
+      } else {
+        console.log(data);
       }
     } catch (error) {
       console.log(error.message);
@@ -81,6 +137,25 @@ function PostComment({ postId }) {
             <Button type="submit">Submit</Button>
           </div>
         </form>
+      )}
+      {comments.length === 0 ? (
+        <h1>No comments yet!</h1>
+      ) : (
+        <div className="">
+          <p className="pb-3 my-2 border-b">
+            Comments{" "}
+            <span className="border border-gray-500 py-1 px-2 rounded-md">
+              {comments.length}
+            </span>
+          </p>
+          {comments.map((comment) => (
+            <GetComments
+              comment={comment}
+              key={comment._id}
+              handleLike={handleLike}
+            />
+          ))}
+        </div>
       )}
     </div>
   );

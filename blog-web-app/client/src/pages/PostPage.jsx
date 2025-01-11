@@ -8,7 +8,8 @@ import PostComment from "../components/PostComment";
 function PostPage() {
   const { postSlug } = useParams();
   const [post, setPost] = useState(null);
-  console.log(post);
+
+  // console.log(post);
   useEffect(() => {
     const makeAbsoluteUrl = (content) => {
       const baseUrl = "https://";
