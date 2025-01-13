@@ -36,4 +36,47 @@ export const likeComment = async (req, res) => {
   await comment.save();
   return res.status(200).json(comment);
 };
+
+export const deleteComment = async (req, res) => {
+  const comment = await Comment.findById(req.params.commentId);
+  if (!comment) {
+    return res.status(400).json("No comment found");
+  }
+  const userId = comment.userId;
+  if (!req.user.isAdmin && req.user.id !== userId) {
+    return res.status(400).json("you are not allowed to delete this comment");
+  }
+  try {
+    await Comment.findByIdAndDelete(req.params.commentId);
+    return res.status(200).json("this comment is deleted");
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+};
+
+export const editComment = async (req, res) => {
+  try {
+    const comment = await Comment.findById(req.params.commentId);
+
+    if (!comment) {
+      return res.status(400).json("Comment not found");
+    }
+
+    if (!req.user.isAdmin && req.user.id !== comment.userId) {
+      return res.status(400).json("You are not allowed to edit this comment");
+    }
+
+    const updateComment = await Comment.findByIdAndUpdate(
+      req.params.commentId,
+      {
+        content: req.body.content,
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(updateComment);
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+};
 export default addComment;

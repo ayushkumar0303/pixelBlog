@@ -35,6 +35,32 @@ function GetComments({
   const handleEditComment = () => {
     setEditComment(true);
   };
+
+  const handleSave = async () => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/server/comment/edit-comment/${comment._id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ content: editedContent }),
+        }
+      );
+
+      const data = await res.json();
+      if (res.ok) {
+        console.log(data);
+        // console.log(editedContent);
+        setEditComment(false);
+        handleEditedComment(comment._id, data.content);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="border-b p-3 my-3 rounded-sm">
       <div className="flex gap-2">
@@ -51,15 +77,13 @@ function GetComments({
                 className="font-light w-full"
                 placeholder="Write your comment..."
                 rows="3"
+                spellCheck="false"
                 value={editedContent}
                 onChange={(e) => setEditedContent(e.target.value)}
               />
               <div className="flex justify-end gap-3">
-                <Button
-                  onClick={() => handleEditedComment(comment._id, editComment)}
-                  pill
-                >
-                  Submit
+                <Button onClick={() => handleSave()} pill>
+                  Save
                 </Button>
                 <Button outline pill onClick={() => setEditComment(false)}>
                   Cancel
@@ -82,7 +106,12 @@ function GetComments({
                     }`}
                   />
                 </button>
-                {comment.likesCount !== 0 && <p>{comment.likesCount} Likes</p>}
+                {comment.likesCount !== 0 && (
+                  <p>
+                    {comment.likesCount}{" "}
+                    {`${comment.likesCount === 1 ? "like" : "likes"}`}
+                  </p>
+                )}
                 {currentUser &&
                   (currentUser.isAdmin || currentUser._id === user._id) && (
                     <>

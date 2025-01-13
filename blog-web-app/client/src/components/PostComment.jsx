@@ -10,6 +10,7 @@ function PostComment({ postId }) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState("");
   const navigate = useNavigate();
+  // console.log(comments);
 
   useEffect(() => {
     try {
@@ -50,9 +51,10 @@ function PostComment({ postId }) {
       );
 
       const data = await res.json();
-      // console.log(data);
+      console.log(data);
       if (res.ok) {
         setComment("");
+        setComments([data, ...comments]);
       } else {
         console.log(data.message);
       }
@@ -61,7 +63,7 @@ function PostComment({ postId }) {
     }
   };
 
-  const handleLike = async (commentId) => {
+  const handleLikeComment = async (commentId) => {
     if (!currentUser) {
       navigate("/signin");
       return;
@@ -95,6 +97,33 @@ function PostComment({ postId }) {
       console.log(error.message);
     }
   };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/server/comment/delete-comment/${commentId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
+      const data = await res.json();
+      if (res.ok) {
+        setComments(comments.filter((comment) => comment._id !== commentId));
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const handleEditedComment = async (commentId, editedContent) => {
+    setComments(
+      comments.map((c) =>
+        c._id === commentId ? { ...c, content: editedContent } : c
+      )
+    );
+  };
   return (
     <div className="max-w-2xl p-3 w-full mx-auto flex flex-col gap-3">
       {currentUser ? (
@@ -126,6 +155,7 @@ function PostComment({ postId }) {
           className="w-full border flex flex-col gap-3 border-teal-500 rounded-md p-3"
         >
           <Textarea
+            spellCheck="false"
             className="font-light"
             placeholder="Write your comment..."
             rows="3"
@@ -152,7 +182,9 @@ function PostComment({ postId }) {
             <GetComments
               comment={comment}
               key={comment._id}
-              handleLike={handleLike}
+              handleLikeComment={handleLikeComment}
+              handleDeleteComment={handleDeleteComment}
+              handleEditedComment={handleEditedComment}
             />
           ))}
         </div>
