@@ -81,6 +81,16 @@ function DashSidebar() {
                   Users
                 </Sidebar.Item>
               </Link>
+              <Link to="/dashboard/?tab=comments">
+                <Sidebar.Item
+                  icon={HiDocument}
+                  labelColor="dark"
+                  active={tab === "comments"}
+                  as="div"
+                >
+                  Comments
+                </Sidebar.Item>
+              </Link>
             </>
           )}
 

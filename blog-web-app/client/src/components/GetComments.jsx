@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 // import { BiLike } from "react-icons/bi";
 import { BiSolidLike } from "react-icons/bi";
+import moment from "moment";
 
 function GetComments({
   comment,
@@ -70,7 +71,13 @@ function GetComments({
           alt=""
         />
         <div className=" flex flex-col gap-1 w-full">
-          <p className="text-xs font-extralight">@{user.username}</p>
+          <p className="text-xs font-semibold">
+            @{user.username}
+            <span className="ml-2 font-light">
+              {moment(comment.createdAt).fromNow()}
+            </span>
+          </p>
+
           {editComment ? (
             <>
               <Textarea
@@ -78,6 +85,7 @@ function GetComments({
                 placeholder="Write your comment..."
                 rows="3"
                 spellCheck="false"
+                maxLength={200}
                 value={editedContent}
                 onChange={(e) => setEditedContent(e.target.value)}
               />

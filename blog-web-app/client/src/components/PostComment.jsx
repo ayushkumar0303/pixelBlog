@@ -174,6 +174,7 @@ function PostComment({ postId }) {
               spellCheck="false"
               className="font-light"
               placeholder="Write your comment..."
+              maxLength={200}
               rows="3"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
@@ -208,7 +209,7 @@ function PostComment({ postId }) {
       </div>
       <div className="flex flex-col items-center gap-3 max-w-4xl">
         <h1 className="text-lg">Recent articles</h1>
-        <div className="flex gap-4 flex-wrap ">
+        <div className="flex gap-4 flex-wrap mx-2">
           {postData.map((post) => (
             <PostCard post={post} key={post._id} />
           ))}

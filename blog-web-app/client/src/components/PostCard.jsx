@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function PostCard({ post }) {
   return (
-    <div className="group relative border p-2 rounded-lg flex flex-col flex-1 gap-1 group-hover:border-9 overflow-hidden">
+    <div className="group relative border p-2 rounded-lg flex flex-col sm:flex-1 w-full h-[340px] gap-1 group-hover:border-9 overflow-hidden">
       <Link to={`/posts/${post.slug}`}>
         <img
           src={post.postImage}
@@ -14,13 +14,13 @@ function PostCard({ post }) {
       </Link>
       <div className="flex flex-col items-start gap-1">
         <Link to={`/posts/${post.slug}`}>
-          <h5>{post.title} </h5>
+          <h5 className="line-clamp-1">{post.title} </h5>
         </Link>
-        <span className="text-sm italic">{post.category}</span>
+        <Badge className="text-sm italic">{post.category}</Badge>
         <Link
           to={`/posts/${post.slug}`}
-          className="z-10 absolute bottom-[-200px] group-hover:bottom-0 left-0 text-center right-0 group-hover:border-2 group-hover:border-teal-500 hover:bg-teal-500 p-1 m-3
-          rounded-lg transition-all duration-300"
+          className="z-10 absolute bottom-[-200px] group-hover:bottom-0 left-0 text-center right-0 group-hover:border-2 group-hover:border-teal-500 hover:bg-teal-500 hover:text-white p-1 m-3 text-teal-500
+          rounded-lg transition-all duration-300 text-sm"
         >
           Read more...
         </Link>

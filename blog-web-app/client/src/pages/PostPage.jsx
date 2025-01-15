@@ -48,7 +48,7 @@ function PostPage() {
         <img
           src={post && post.postImage}
           alt=""
-          className="w-2/3 min-w-96 h-80 object-cover self-center "
+          className="w-5/6 min-w-96 h-[450px] object-cover self-center "
         />
         <div className="flex justify-between my-2 text-xs">
           <span>{new Date(post && post.updatedAt).toLocaleDateString()}</span>

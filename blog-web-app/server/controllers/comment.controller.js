@@ -79,4 +79,40 @@ export const editComment = async (req, res) => {
     return res.status(400).json(error.message);
   }
 };
+
+export const getAllComments = async (req, res) => {
+  console.log(req.user);
+  if (!req.user.isAdmin) {
+    return res.status(400).json("You are not allowed to get all comments");
+  }
+  try {
+    const startIndex = parseInt(req.query.startIndex) || 0;
+    const limit = parseInt(req.query.limit) || 9;
+    const sortDirection = req.query.sort === "desc" ? -1 : 1;
+    const comments = await Comment.find()
+      .sort({
+        createdAt: sortDirection,
+      })
+      .skip(startIndex)
+      .limit(limit);
+
+    const totalComments = await Comment.countDocuments();
+    const now = new Date();
+    const oneMonthAgoDate = new Date(
+      now.getFullYear(),
+      now.getMonth() - 1,
+      now.getDate()
+    );
+    console.log(oneMonthAgoDate);
+    const oneMonthAgoComments = await Comment.countDocuments({
+      createdAt: { $gte: oneMonthAgoDate },
+    });
+    console.log(oneMonthAgoComments);
+    return res
+      .status(200)
+      .json({ comments, totalComments, oneMonthAgoComments });
+  } catch (error) {
+    return res.status(400).json(error.message);
+  }
+};
 export default addComment;

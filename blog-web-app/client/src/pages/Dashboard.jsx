@@ -4,6 +4,7 @@ import DashProfile from "../components/DashProfile";
 import DashPosts from "../components/DashPosts";
 import { useLocation } from "react-router-dom";
 import DashUsers from "../components/DashUsers";
+import DashComments from "../components/DashComments";
 
 function Dashboard() {
   const [tab, setTab] = useState("");
@@ -24,6 +25,7 @@ function Dashboard() {
       {tab === "profile" && <DashProfile />}
       {tab === "posts" && <DashPosts />}
       {tab === "users" && <DashUsers />}
+      {tab === "comments" && <DashComments />}
     </div>
   );
 }
