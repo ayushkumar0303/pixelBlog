@@ -26,7 +26,7 @@ function DashComments() {
         // console.log(res);
         const data = await res.json();
 
-        console.log(data);
+        // console.log(data);
 
         if (res.ok) {
           setGetComments(data.comments);
@@ -66,7 +66,7 @@ function DashComments() {
       console.log(error.message);
     }
   };
-  console.log(getComments);
+  // console.log(getComments);
   return (
     <div className="overflow-x-auto mx-auto py-5 ">
       {!commentsLoading ? (

@@ -107,7 +107,7 @@ export const getAllComments = async (req, res) => {
     const oneMonthAgoComments = await Comment.countDocuments({
       createdAt: { $gte: oneMonthAgoDate },
     });
-    console.log(oneMonthAgoComments);
+    // console.log(oneMonthAgoComments);
     return res
       .status(200)
       .json({ comments, totalComments, oneMonthAgoComments });

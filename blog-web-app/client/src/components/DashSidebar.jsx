@@ -6,6 +6,7 @@ import {
   HiDocument,
   HiArrowSmRight,
   HiUsers,
+  HiAnnotation,
 } from "react-icons/hi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signOutSuccess } from "../store/store";
@@ -61,6 +62,16 @@ function DashSidebar() {
           </Link>
           {currentUser.isAdmin && (
             <>
+              <Link to="/dashboard/?tab=dash">
+                <Sidebar.Item
+                  icon={HiDocument}
+                  labelColor="dark"
+                  active={tab === "dash"}
+                  as="div"
+                >
+                  Dashboard
+                </Sidebar.Item>
+              </Link>
               <Link to="/dashboard/?tab=posts">
                 <Sidebar.Item
                   icon={HiDocument}
@@ -71,6 +82,7 @@ function DashSidebar() {
                   Posts
                 </Sidebar.Item>
               </Link>
+
               <Link to="/dashboard/?tab=users">
                 <Sidebar.Item
                   icon={HiUsers}
@@ -83,7 +95,7 @@ function DashSidebar() {
               </Link>
               <Link to="/dashboard/?tab=comments">
                 <Sidebar.Item
-                  icon={HiDocument}
+                  icon={HiAnnotation}
                   labelColor="dark"
                   active={tab === "comments"}
                   as="div"
