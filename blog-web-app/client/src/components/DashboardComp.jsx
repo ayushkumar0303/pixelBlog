@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { HiOutlineUserGroup } from "react-icons/hi";
+import { HiArrowNarrowUp } from "react-icons/hi";
 
 function DashboardComp() {
   const [users, setUsers] = useState([]);
@@ -60,7 +62,16 @@ function DashboardComp() {
     <div>
       <div>
         <div>
-          <h5>{users.length}</h5>
+          <h3 className="text-gray-500 uppercase text-md">Total Users</h3>
+          <p className="text-2xl">{totalUsers}</p>
+          <HiOutlineUserGroup />
+        </div>
+        <div className="flex gap-2 text-sm">
+          <span className="text-green-400 flex items-center">
+            <HiArrowNarrowUp />
+            {oneMonthAgoUsers}
+          </span>
+          <div>Last Month</div>
         </div>
       </div>
     </div>
