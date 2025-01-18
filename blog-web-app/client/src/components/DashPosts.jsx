@@ -25,7 +25,7 @@ function DashPosts() {
         if (res.ok) {
           setUserPosts(data.posts);
           // console.log(data.posts.length);
-          if (data.posts.length < 9) {
+          if (data.posts.length <= 9) {
             setShowMore(false);
           }
         }
@@ -43,7 +43,7 @@ function DashPosts() {
   // console.log(posts);
 
   const handleShowMore = async () => {
-    const startIndex = posts.length;
+    const startIndex = userPosts.length;
     try {
       const res = await fetch(
         `http://localhost:3000/server/post/get-posts?startIndex=${startIndex}`
@@ -54,7 +54,7 @@ function DashPosts() {
 
       if (res.ok) {
         setUserPosts((prev) => [...prev, ...data.posts]);
-        if (data.posts.length < 9) {
+        if (data.posts.length <= 9) {
           setShowMore(false);
         }
       }
@@ -118,8 +118,13 @@ function DashPosts() {
                           />
                         </Link>
                       </Table.Cell>
-                      <Table.Cell>
-                        <Link to={`/posts/${post.slug}`}>{post.slug}</Link>
+                      <Table.Cell className="max-w-[400px]">
+                        <Link
+                          to={`/posts/${post.slug}`}
+                          className="line-clamp-1"
+                        >
+                          {post.slug}
+                        </Link>
                       </Table.Cell>
                       <Table.Cell>{post.category}</Table.Cell>
                       <Table.Cell>
