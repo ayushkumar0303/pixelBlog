@@ -18,9 +18,7 @@ function DashPosts() {
     const getPosts = async () => {
       try {
         setPostsLoading(true);
-        const res = await fetch(
-          `http://localhost:3000/server/post/get-posts?userId=${currentUser._id}`
-        );
+        const res = await fetch(`http://localhost:3000/server/post/get-posts`);
         // console.log(res);
         const data = await res.json();
         // console.log(data.posts[0]);
@@ -48,7 +46,7 @@ function DashPosts() {
     const startIndex = posts.length;
     try {
       const res = await fetch(
-        `http://localhost:3000/server/post/get-posts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `http://localhost:3000/server/post/get-posts?startIndex=${startIndex}`
       );
 
       const data = await res.json();
