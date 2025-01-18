@@ -23,7 +23,7 @@ function Header() {
   };
 
   const handleSignOut = async (req, res) => {
-    console.log("handling signout");
+    // console.log("handling signout");
     try {
       const res = await fetch("http://localhost:3000/server/user/sign-out", {
         method: "POST",
@@ -43,7 +43,9 @@ function Header() {
   return (
     <Navbar className=" border-b-2 border-b-teal-800">
       <Link to="/" className="font-semibold text-sm sm:text-xl">
-        <span className="bg-green-700 px-3 py-1 rounded text-white">Pixel</span>
+        <span className="bg-green-700 px-3 py-1 mr-1 rounded text-white">
+          Pixel
+        </span>
         Blog
       </Link>
       <form>
@@ -99,8 +101,8 @@ function Header() {
             )}
           </div>
           <div className="flex flex-col gap-8 md:flex-row md:items-center ">
-            <Navbar.Link active={path === "/home"} as={"div"}>
-              <Link to="/home">Home</Link>
+            <Navbar.Link active={path === "/"} as={"div"}>
+              <Link to="/">Home</Link>
             </Navbar.Link>
             <Navbar.Link active={path === "/about"} as={"div"}>
               <Link to="/about">About</Link>

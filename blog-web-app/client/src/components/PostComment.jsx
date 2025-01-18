@@ -33,7 +33,7 @@ function PostComment({ postId }) {
           `http://localhost:3000/server/post/get-posts/?limit=3`
         );
         const data = await res.json();
-        console.log(data);
+        // console.log(data);
         if (res.ok) {
           setPostData(data.posts);
         }
@@ -66,7 +66,7 @@ function PostComment({ postId }) {
       );
 
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       if (res.ok) {
         setComment("");
         setComments([data, ...comments]);
@@ -207,9 +207,9 @@ function PostComment({ postId }) {
           </div>
         )}
       </div>
-      <div className="flex flex-col items-center gap-3 max-w-4xl">
+      <div className="flex flex-col items-center gap-3 max-w-6xl">
         <h1 className="text-lg">Recent articles</h1>
-        <div className="flex gap-4 flex-wrap mx-2">
+        <div className="flex gap-4 flex-wrap mx-2 justify-center">
           {postData.map((post) => (
             <PostCard post={post} key={post._id} />
           ))}

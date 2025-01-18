@@ -200,13 +200,13 @@ function CreatePost() {
         setFormsubmittionError(data);
       }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       setFormsubmittionError(error.message);
     }
   };
   const handleUploadImage = async () => {
     setImageUploading(true);
-    console.log(formData);
+    // console.log(formData);
     try {
       setImageUploadError(null);
       const res = await storage.createFile(
@@ -221,7 +221,7 @@ function CreatePost() {
         // console.log(formData);
       }
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       setImageUploadError(error.message);
     }
     setImageUploading(false);
@@ -239,7 +239,7 @@ function CreatePost() {
   };
   // console.log(image);
   // console.log(imageUrl);
-  console.log(formData);
+  // console.log(formData);
   return (
     <div className="p-3 min-h-screen max-w-3xl mx-auto">
       <h1 className="font-bold text-3xl text-center my-4">Create a Post</h1>

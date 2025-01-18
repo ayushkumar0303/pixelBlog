@@ -40,7 +40,7 @@ function DashUsers() {
 
   const handleDeleteUser = async () => {
     try {
-      console.log(userIdToDelete.current);
+      // console.log(userIdToDelete.current);
       const res = await fetch(
         `http://localhost:3000/server/user/delete/${userIdToDelete.current}`,
         {
@@ -106,7 +106,7 @@ function DashUsers() {
                       <span
                         onClick={() => {
                           setShowModal(true);
-                          console.log(user._id);
+                          // console.log(user._id);
                           userIdToDelete.current = user._id;
                         }}
                         className="text-red-500 hover:underline cursor-pointer"

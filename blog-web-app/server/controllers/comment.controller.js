@@ -81,7 +81,7 @@ export const editComment = async (req, res) => {
 };
 
 export const getAllComments = async (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   if (!req.user.isAdmin) {
     return res.status(400).json("You are not allowed to get all comments");
   }
@@ -103,7 +103,7 @@ export const getAllComments = async (req, res) => {
       now.getMonth() - 1,
       now.getDate()
     );
-    console.log(oneMonthAgoDate);
+    // console.log(oneMonthAgoDate);
     const oneMonthAgoComments = await Comment.countDocuments({
       createdAt: { $gte: oneMonthAgoDate },
     });

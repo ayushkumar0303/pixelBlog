@@ -53,7 +53,7 @@ function GetComments({
 
       const data = await res.json();
       if (res.ok) {
-        console.log(data);
+        // console.log(data);
         // console.log(editedContent);
         setEditComment(false);
         handleEditedComment(comment._id, data.content);
